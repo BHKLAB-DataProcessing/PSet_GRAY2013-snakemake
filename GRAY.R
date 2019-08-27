@@ -144,7 +144,7 @@ load("/pfs/GRAYRawSensitivity/drug_norm_post.RData")
     
     #RNA-seq Processed Data (Kallisto)
     
-    load("/pfs/getGRAY2013/GRAY_Kallisto.RData")
+    load("/pfs/downloadrna/GRAY_Kallisto.RData")
     
     GRAY2013_updated <- PharmacoSet(molecularProfiles=rna,
                             name="GRAY", 
