@@ -168,10 +168,10 @@ getGRAYP <-
       pData(transcript.count) <- samples_annotation[sampleNames(transcript.count),]
       annotation(transcript.count) <- "isoforms"
       
-      return(list("gene_exp"=gene.exp, 
-                  "gene_count"=gene.count, 
-                  "transcript_exp"=transcript.exp, 
-                  "transcript_count"=transcript.count))
+      return(list("rnaseq"=gene.exp, 
+                  "rnaseq.counts"=gene.count, 
+                  "isoforms"=transcript.exp, 
+                  "isoforms.counts"=transcript.count))
     }
     
 
