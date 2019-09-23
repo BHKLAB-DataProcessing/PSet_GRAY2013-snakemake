@@ -199,7 +199,7 @@ getGRAYP <-
                             curationTissue=curationTissue, 
                             datasetType="sensitivity")
     
-    save(GRAY2013,file="/pfs/out/GRAY_2013.RData")
+    saveRDS(GRAY2013,file="/pfs/out/GRAY_2013.rds")
     
     return (GRAY2013)
     
