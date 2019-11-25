@@ -111,7 +111,7 @@ getGRAYP <-
     sensitivity.profiles <- cbind(sensitivity.profiles, "slope_recomputed"=slope)
     head(sensitivity.profiles)
                                    
-    
+    sensitivity.info <- as.data.frame(sensitivity.info)
     # drug info (drug slot)
 
     curationDrug <- curationDrug[as.character(unique(sensitivity.info[,"drugid"])),]
@@ -188,7 +188,21 @@ getGRAYP <-
                                    
     
                                    
-                              
+  cellnall <- unionList(rownames(cellineinfo),rnaseq$rnaseq$cellid, sensitivity.info$cellid)
+  newcells <- setdiff(cellnall, rownames(cellineinfo))
+  newRows <- matrix(NA_character_, nrow=length(newcells), ncol=ncol(cellineinfo))
+  # newRows <- cell.info[newcells,]
+
+  rownames(newRows) <- newcells
+  colnames(newRows) <- colnames(cellineinfo)
+  newRows[,"cellid"] <- newcells
+
+  cellineinfo <- rbind(cellineinfo, newRows)
+    
+    
+    
+  cellsPresent <- sort(unionList(sensitivity.info$cellid,rnaseq$rnaseq$cellid))
+  cellineinfo <- cellineinfo[cellsPresent,]                             
 	  
 	  
   drug_all <- read.csv("/pfs/downAnnotations/drugs_with_ids.csv", na.strings=c("", " ", "NA"))
