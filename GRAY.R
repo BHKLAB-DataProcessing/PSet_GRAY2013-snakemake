@@ -66,7 +66,7 @@ getGRAYP <-
     cellineinfo$cellid <- as.character(matchToIDTable(ids=cellineinfo$cellid, tbl=curationCell, column = "GRAY.cellid", returnColumn = "unique.cellid"))
     rownames(cellineinfo) <-  cellineinfo$cellid
     
-    curationCell <- curationCell[rownames(cellineinfo),]
+    #curationCell <- curationCell[rownames(cellineinfo),]
     
     #published sensitivity
     
