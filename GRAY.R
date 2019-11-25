@@ -186,29 +186,9 @@ getGRAYP <-
     
 
                                    
-    #add missing celllines and drugs to cell/drug info
     
-  cellnall <- unionList(rownames(cellineinfo),rnaseq$cellid)
-  print(head(cellnall))                                
-  newcells <- setdiff(cellnall, rownames(cellineinfo))
-  newRows <- matrix(NA_character_, nrow=length(newcells), ncol=ncol(cellineinfo))
-  # newRows <- cell.info[newcells,]
-
-  rownames(newRows) <- newcells
-  colnames(newRows) <- colnames(cellineinfo)
-  newRows[,"unique.cellid"] <- newcells
-  print("new Rows done")
-  print(head(newRows))		
-  cellineinfo <- rbind(cellineinfo, newRows)
                                    
-                                   
-  cellsPresent <- sort(unionList(sensitivity.info$cellid,rnaseq$cellid))
-  print("cellsPresent done")
-  cellineinfo <- cellineinfo[cellsPresent,]
-   
-  drugsPresent <- sort(unique(sensitivity.info$drugid))
-  print("DrugsPresent Done")
-  druginfo <- druginfo[drugsPresent,]
+                              
 	  
 	  
   drug_all <- read.csv("/pfs/downAnnotations/drugs_with_ids.csv", na.strings=c("", " ", "NA"))
