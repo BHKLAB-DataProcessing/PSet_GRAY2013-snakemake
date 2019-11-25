@@ -185,6 +185,41 @@ getGRAYP <-
                                 samples_annotation=rnaseq.sampleinfo)
     
 
+                                   
+    #add missing celllines and drugs to cell/drug info
+    
+  cellnall <- unionList(rownames(cellineinfo), 
+		                    rnaseq$cellid)
+                                   
+  newcells <- setdiff(cellnall, rownames(cellineinfo))
+  newRows <- matrix(NA_character_, nrow=length(newcells), ncol=ncol(cellineinfo))
+  # newRows <- cell.info[newcells,]
+
+  rownames(newRows) <- newcells
+  colnames(newRows) <- colnames(cellineinfo)
+  newRows[,"unique.cellid"] <- newcells
+
+  cellineinfo <- rbind(cellineinfo, newRows)
+                                   
+                                   
+  cellsPresent <- sort(unionList(sensitivity.info$cellid, 
+		    		                     rnaseq$cellid))
+    
+  cellineinfo <- cellineinfo[cellsPresent,]
+   
+  drugsPresent <- sort(unique(sensitivity.info$drugid))
+
+  druginfo <- druginfo[drugsPresent,]
+	  
+	  
+  drug_all <- read.csv("/pfs/downAnnotations/drugs_with_ids.csv", na.strings=c("", " ", "NA"))
+  drug_all <- drug_all[which(!is.na(drug_all[ , "GRAY.drugid"])),]
+  drug_all <- drug_all[ , c("unique.drugid", "GRAY.drugid","smiles","inchikey","cid","FDA")]
+  rownames(drug_all) <- drug_all[ , "unique.drugid"]
+
+  drug_all <- drug_all[rownames(druginfo),]
+  druginfo[,c("smiles","inchikey","cid","FDA")] <- drug_all[,c("smiles","inchikey","cid","FDA")] 
+                                   
     
     GRAY2013 <- PharmacoSet(molecularProfiles=rnaseq,
                             name="GRAY", 
