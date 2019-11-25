@@ -197,16 +197,17 @@ getGRAYP <-
   rownames(newRows) <- newcells
   colnames(newRows) <- colnames(cellineinfo)
   newRows[,"unique.cellid"] <- newcells
-
+  print("new Rows done")
+  print(head(newRows))		
   cellineinfo <- rbind(cellineinfo, newRows)
                                    
                                    
   cellsPresent <- sort(unionList(sensitivity.info$cellid,rnaseq$cellid))
-    
+  print("cellsPresent done")
   cellineinfo <- cellineinfo[cellsPresent,]
    
   drugsPresent <- sort(unique(sensitivity.info$drugid))
-
+  print("DrugsPresent Done")
   druginfo <- druginfo[drugsPresent,]
 	  
 	  
