@@ -25,10 +25,14 @@ getGRAYP <-
   
     }, rna2 = {
     RNAseqFolder <- "download_gray_molec/GRAY_molecular/GRAY_molecular/2017/RNA-seq"
-    profFolder <- "GRAY_Kallisto_0.46.1_hg38_gen23"
+    processed_folder <- "GRAY_Kallisto_0.46.1_hg38_gen23"
     toolver ="kallisto"
     })
     
+    print(RNAseqFolder)
+    print(processed_folder)
+    print(toolver)
+	  
     #match to curations
     
     matchToIDTable <- function(ids,tbl, column, returnColumn="unique.cellid") {
