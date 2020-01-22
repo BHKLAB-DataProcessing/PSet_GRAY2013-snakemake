@@ -10,6 +10,24 @@ getGRAYP <-
     nthread=1){
     
     options(stringsAsFactors=FALSE)
+	  
+    myDirPrefix <- "/pfs"
+
+    args = commandArgs(trailingOnly=TRUE)
+
+    rnaversion <- args[[1]]
+	  
+	  
+    switch(rnaversion, rna1 = {
+    RNAseqFolder <- "download_gray_molec/GRAY_molecular/GRAY_molecular/2017/RNA-seq"
+    processed_folder <- "GRAY_Kallisto_0.43.1_hg38_gen23"
+    toolver ="kallisto"
+  
+    }, rna2 = {
+    RNAseqFolder <- "download_gray_molec/GRAY_molecular/GRAY_molecular/2017/RNA-seq"
+    profFolder <- "GRAY_Kallisto_0.46.1_hg38_gen23"
+    toolver ="kallisto"
+    })
     
     #match to curations
     
@@ -174,14 +192,14 @@ getGRAYP <-
                   "isoforms.counts"=transcript.count))
     }
     
-
-    rnaseq.sampleinfo <- read.csv("/pfs/downloadrna/Kallisto_0.43.1_processed/Kallisto_0.43.1_processed/JRGraySRRMapping.csv", stringsAsFactors=FALSE, row.names=1)
+  
+    rnaseq.sampleinfo <- read.csv(file=paste0(file.path(myDirPrefix, RNAseqFolder, processed_folder, "JRGraySRRMapping.csv")), stringsAsFactors=FALSE, row.names=1)
     
     rnaseq.sampleinfo[ , "cellid"] <- as.character(matchToIDTable(ids=rnaseq.sampleinfo[ , "cellid"], tbl=curationCell, column = "GRAY.cellid", returnColumn = "unique.cellid"))
    
-    rnaseq <- summarizeRnaSeq(dir="/pfs/downloadrna/Kallisto_0.43.1_processed/Kallisto_0.43.1_processed", 
-                                tool="kallisto", 
-                                features_annotation="/pfs/downloadrna/Kallisto_0.43.1_processed/Kallisto_0.43.1_processed/Gencode.v23.annotation.RData",
+    rnaseq <- summarizeRnaSeq(dir=paste0(file.path(myDirPrefix, RNAseqFolder, processed_folder)), 
+                                tool= toolver, 
+                                features_annotation=paste0(file.path(myDirPrefix, RNAseqFolder, processed_folder, "Gencode.v23.annotation.RData")),
                                 samples_annotation=rnaseq.sampleinfo)
     
 
