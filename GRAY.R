@@ -4,6 +4,7 @@ library(openxlsx)
 library(tximport)
 library(Biobase)
 print("version1 updated")
+print("version 2 updated")
 
 getGRAYP <-
   function (
