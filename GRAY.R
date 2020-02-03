@@ -3,8 +3,11 @@ library(readxl)
 library(openxlsx)
 library(tximport)
 library(Biobase)
-print("version1 updated")
-print("version 2 updated")
+
+args = commandArgs(trailingOnly=TRUE)
+input_params <- args
+ORCESTRA_ID = tail(input_params, n=1)
+
 
 getGRAYP <-
   function (
@@ -260,3 +263,6 @@ getGRAYP <-
   }
 
 getGRAYP(verbose=FALSE, nthread=1)
+				   
+write.table(ORCESTRA_ID, file="/pfs/out/orcestra_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F)				   
+				   
