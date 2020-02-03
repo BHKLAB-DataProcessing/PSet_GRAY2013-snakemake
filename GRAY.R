@@ -236,7 +236,9 @@ getGRAYP <-
 
   drug_all <- drug_all[rownames(druginfo),]
   druginfo[,c("smiles","inchikey","cid","FDA")] <- drug_all[,c("smiles","inchikey","cid","FDA")] 
-                                   
+  pach_commit_id <- Sys.getenv("PACH_OUTPUT_COMMIT_ID")
+  write.table(pach_commit_id, file="/pfs/out/gray_commit_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F) 	
+                               
     
     GRAY2013 <- PharmacoSet(molecularProfiles=rnaseq,
                             name="GRAY", 
