@@ -290,9 +290,7 @@ summarizeRnaSeq <- function (dir,
 
   drug_all <- drug_all[rownames(druginfo),]
   druginfo[,c("smiles","inchikey","cid","FDA")] <- drug_all[,c("smiles","inchikey","cid","FDA")] 
-  pach_commit_id <- Sys.getenv("PACH_OUTPUT_COMMIT_ID")
-  write.table(pach_commit_id, file="/pfs/out/gray_commit_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F) 	
-  
+ 	 
 z <- list()
 
 z <- c(z,c(
@@ -470,6 +468,8 @@ print("filter done")
 GRAY2013@sensitivity$profiles[noisy_out$noisy, ] <- NA
 		 
 saveRDS(GRAY2013,file="/pfs/out/GRAY_2013.rds")				   
-				   								   
+
+#output ORCESTRA_ID and Pachyderm commit id
 write.table(ORCESTRA_ID, file="/pfs/out/orcestra_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F)				   
-				   
+pach_commit_id <- Sys.getenv("PACH_OUTPUT_COMMIT_ID")
+write.table(pach_commit_id, file="/pfs/out/gray_commit_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F) 				   
