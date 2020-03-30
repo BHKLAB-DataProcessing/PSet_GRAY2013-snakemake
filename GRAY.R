@@ -389,6 +389,10 @@ standardizeRawDataConcRange <- function(sens.info, sens.raw){
 }
 		 
 		 
+#add cellosaurus disease type to cell-info
+disease <- cell_all$Cellosaurus.Disease.Type[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$Cellosaurus.Disease.Type <- disease
+		 
 		 
 standardize <- standardizeRawDataConcRange(sens.info = sensitivity.info, sens.raw = raw.sensitivity)
 		 				   
