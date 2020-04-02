@@ -392,7 +392,26 @@ standardizeRawDataConcRange <- function(sens.info, sens.raw){
 #add cellosaurus disease type to cell-info
 disease <- cell_all$Cellosaurus.Disease.Type[match(cellineinfo$cellid, cell_all$unique.cellid)]
 cellineinfo$Cellosaurus.Disease.Type <- disease
+	 
+#add cellosaurus assession to cell-info
+assession <- cell_all$Cellosaurus.Accession.id[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$Cellosaurus.Accession.id <- assession
 		 
+#add pharmacodb id to cell-info
+pdb <- cell_all$PharmacoDB.id[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$PharmacoDB.id <- pdb
+
+#add study tissue id to cell_info
+study_tissue <- cell_all$unique.tissueid.fromstudies[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$unique.tissueid.fromstudies <- study_tissue
+		 
+#add study cell-line type to cell_info
+cell_type <- cell_all$CellLine.Type[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$CellLine.Type <- cell_type
+		 
+#add metastatic info to cell_info		 
+metastatic <- cell_all$Metastatic[match(cellineinfo$cellid, cell_all$unique.cellid)]
+cellineinfo$Metastatic <- metastatic	
 		 
 standardize <- standardizeRawDataConcRange(sens.info = sensitivity.info, sens.raw = raw.sensitivity)
 		 				   
