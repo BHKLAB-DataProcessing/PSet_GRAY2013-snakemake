@@ -265,7 +265,7 @@ summarizeRnaSeq <- function (dir,
 
                                    
     
-                                   
+  #add missing cells to cell info                                 
   cellnall <- unionList(rownames(cellineinfo),rnaseq$rnaseq$cellid, sensitivity.info$cellid)
   newcells <- setdiff(cellnall, rownames(cellineinfo))
   newRows <- matrix(NA_character_, nrow=length(newcells), ncol=ncol(cellineinfo))
@@ -278,10 +278,11 @@ summarizeRnaSeq <- function (dir,
   cellineinfo <- rbind(cellineinfo, newRows)
     
     
-    
   cellsPresent <- sort(unionList(sensitivity.info$cellid,rnaseq$rnaseq$cellid))
   cellineinfo <- cellineinfo[cellsPresent,]                             
-	  
+
+  cellineinfo$tissueid <- curationTissue[rownames(cellineinfo), "unique.tissueid"]
+  cellineinfo$cellid <- rownames(cellineinfo)
 	  
   drug_all <- read.csv("/pfs/downAnnotations/drugs_with_ids.csv", na.strings=c("", " ", "NA"))
   drug_all <- drug_all[which(!is.na(drug_all[ , "GRAY.drugid"])),]
