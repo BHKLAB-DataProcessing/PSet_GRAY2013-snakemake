@@ -6,7 +6,7 @@ library(Biobase)
 library(data.table)
 library(reshape2)
 
-
+options(stringsAsFactors = FALSE)
 myDirPrefix <- "/pfs/"
 args = commandArgs(trailingOnly=TRUE)
 rnaseq_select <- args
