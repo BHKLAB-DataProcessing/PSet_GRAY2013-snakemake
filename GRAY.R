@@ -284,8 +284,8 @@ summarizeRnaSeq <- function (dir,
   cellineinfo$tissueid <- curationTissue[rownames(cellineinfo), "unique.tissueid"]
   cellineinfo$cellid <- rownames(cellineinfo)
   
-  curationTissue <- curationTissue[cellineinfo,]
-  curationCell <- curationCell[cellineinfo,]
+  curationTissue <- curationTissue[rownames(cellineinfo),]
+  curationCell <- curationCell[rownames(cellineinfo),]
 				   
   drug_all <- read.csv("/pfs/downAnnotations/drugs_with_ids.csv", na.strings=c("", " ", "NA"))
   drug_all <- drug_all[which(!is.na(drug_all[ , "GRAY.drugid"])),]
