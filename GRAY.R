@@ -494,9 +494,10 @@ noisy_out <- filterNoisyCurves2(GRAY2013)
 print("filter done")
 GRAY2013@sensitivity$profiles[noisy_out$noisy, ] <- NA
 		 
-saveRDS(GRAY2013,file="/pfs/out/GRAY_2013.rds")				   
-
+saveRDS(GRAY2013,file="/pfs/out/GRAY.rds")				   
+dataset <- "GRAY"
 #output ORCESTRA_ID and Pachyderm commit id
+write.table(dataset, file="/pfs/out/dataset.txt", row.names = F ,quote = F, sep = "\t", col.names = F)	
 write.table(ORCESTRA_ID, file="/pfs/out/orcestra_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F)				   
 pach_commit_id <- Sys.getenv("PACH_OUTPUT_COMMIT_ID")
 write.table(pach_commit_id, file="/pfs/out/commit_id.txt", row.names = F ,quote = F, sep = "\t", col.names = F) 				   
