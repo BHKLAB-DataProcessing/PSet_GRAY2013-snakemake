@@ -228,7 +228,7 @@ summarizeRnaSeq <- function (dir,
 
     rnaseq.sampleinfo <- read.csv(file="/pfs/downAnnotations/JRGraySRRMapping.csv", stringsAsFactors=FALSE, row.names=1)
     
-    rnaseq.sampleinfo[ , "unique.cellid"] <- as.character(matchToIDTable(ids=rnaseq.sampleinfo[ , "cellid"], tbl=curationCell, column = "GRAY.cellid", returnColumn = "unique.cellid"))
+    rnaseq.sampleinfo[ , "cellid"] <- as.character(matchToIDTable(ids=rnaseq.sampleinfo[ , "cellid"], tbl=curationCell, column = "GRAY.cellid", returnColumn = "unique.cellid"))
    
     for (r in 1:length(tool_path)){
   print(tool_path[r])
@@ -264,7 +264,7 @@ summarizeRnaSeq <- function (dir,
 }
 
                                    
-  rnaseq_cellid_all <- pData(rnaseq_results[[1]])[,"unique.cellid"]  
+  rnaseq_cellid_all <- pData(rnaseq_results[[1]])[,"cellid"]  
   #add missing cells to cell info                                 
   cellnall <- unionList(rownames(cellineinfo),rnaseq_cellid_all, sensitivity.info$cellid)
   newcells <- setdiff(cellnall, rownames(cellineinfo))
