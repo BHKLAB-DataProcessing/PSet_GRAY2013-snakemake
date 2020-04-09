@@ -133,7 +133,7 @@ print(tool_path)
     # drug info (drug slot)
 
     curationDrug <- curationDrug[as.character(unique(sensitivity.info[,"drugid"])),]
-    druginfo <- data.frame("drugid"=curationDrug$unique.drugid)
+    druginfo <- data.frame("GRAY.drugid"=curationDrug$GRAY.drugid,"drugid"=curationDrug$unique.drugid)
     rownames(druginfo) <- druginfo$drugid
     
     
