@@ -533,7 +533,8 @@ return(list("noisy"=noisy, "ok"=acceptable))
 noisy_out <- filterNoisyCurves2(GRAY2013)
 print("filter done")
 GRAY2013@sensitivity$profiles[noisy_out$noisy, ] <- NA
-		 
+
+GRAY2013@annotation$version <- 2
 saveRDS(GRAY2013,file="/pfs/out/GRAY.rds")				   
 dataset <- "GRAY"
 #output ORCESTRA_ID and Pachyderm commit id
