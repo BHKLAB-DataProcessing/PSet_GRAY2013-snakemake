@@ -373,7 +373,7 @@ z <- .converteSetToSE(z)
 		 				   
 
     GRAY2013 <- PharmacoGx::PharmacoSet(molecularProfiles=z,
-                            name="GRAY", 
+                            name="GRAY2013", 
                             cell=cellineinfo, 
                             drug=druginfo, 
                             sensitivityInfo=sensitivity.info, 
