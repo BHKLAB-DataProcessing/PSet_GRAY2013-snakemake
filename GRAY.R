@@ -564,9 +564,12 @@ write.table(pach_commit_id, file="/pfs/out/commit_id.txt", row.names = F ,quote 
 				   
 				   
 ###CREATE BIOCOMPUTE OBJECT###
-print(tools)				   
-tool <- gsub("\\-.*","", tools)
-version <- gsub(".*-","", tools)
+tools <- grep(pattern = 'Kallisto|Salmon', x = rnaseq_select)
+tools <- rnaseq_select[tools]
+tools <- gsub("-", "_", tools)
+				   
+tool <- gsub("\\_.*","", tools)
+version <- gsub(".*_","", tools)
 
 print(tool)
 print(version)				   
