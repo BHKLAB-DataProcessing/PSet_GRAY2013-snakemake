@@ -564,10 +564,12 @@ write.table(pach_commit_id, file="/pfs/out/commit_id.txt", row.names = F ,quote 
 				   
 				   
 ###CREATE BIOCOMPUTE OBJECT###
-				   
+print(tools)				   
 tool <- gsub("\\-.*","", tools)
 version <- gsub(".*-","", tools)
 
+print(tool)
+print(version)				   
 
 if (length(tools) > 1){
   
