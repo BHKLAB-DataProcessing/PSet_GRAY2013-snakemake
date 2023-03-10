@@ -407,9 +407,9 @@ for (r in 1:length(tool_path)){
   } else {
     annot = file.path(download_dir, "Ensembl.v99.annotation.RData")
   }
-    print(annot)
+  print(annot)
   
-  print(tdir)
+  #print(tdir)
   rnaseq <- summarizeRnaSeq(
     dir=file.path(download_dir, tool, tool_path[r]),
     features_annotation=annot,

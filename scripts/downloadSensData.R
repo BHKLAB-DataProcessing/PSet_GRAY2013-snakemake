@@ -8,9 +8,9 @@ data_dir <- paste0(args[1], "data")
 download_dir <- paste0(args[1], "download")
 processed_dir <- paste0(args[1], "processed")
 
-data_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/data'
-download_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/download'
-processed_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/processed'
+# data_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/data'
+# download_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/download'
+# processed_dir <- '/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/processed'
 
 badchars <- "[\xb5]|[]|[ ,]|[;]|[:]|[-]|[+]|[*]|[%]|[$]|[#]|[{]|[}]|[[]|[]]|[|]|[\\^]|[/]|[\\]|[.]|[_]|[ ]"
 

@@ -171,4 +171,5 @@ dmypy.json
 .snakemake
 download
 processed
+bhklab_orcestra
 .DS_Store

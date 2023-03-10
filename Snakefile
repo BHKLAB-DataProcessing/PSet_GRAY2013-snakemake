@@ -1,11 +1,11 @@
 from os import path
 from snakemake.remote.S3 import RemoteProvider as S3RemoteProvider
-# S3 = S3RemoteProvider(
-#     access_key_id=config["key"],
-#     secret_access_key=config["secret"],
-#     host=config["host"],
-#     stay_on_remote=False
-# )
+S3 = S3RemoteProvider(
+    access_key_id=config["key"],
+    secret_access_key=config["secret"],
+    host=config["host"],
+    stay_on_remote=False
+)
 
 prefix = config["prefix"]
 rna_tool = 'Kallisto-0.46.1'
@@ -19,49 +19,50 @@ rna_ref_file = rna_ref.replace('_', '.') + '.annotation.RData'
 
 rule get_pset:
     input:
-        prefix + "download/drugs_with_ids.csv",
-        prefix + "download/cell_annotation_all.csv",
-        prefix + "download/" + rna_tool_dir + '.tar.gz',
-        prefix + 'download/' + rna_ref_file,
-        prefix + 'download/JRGraySRRMapping.csv',
-        prefix + "processed/drug_norm_post.RData",
-        prefix + "processed/profiles.RData"
+        S3.remote(prefix + "download/drugs_with_ids.csv"),
+        S3.remote(prefix + "download/cell_annotation_all.csv"),
+        S3.remote(prefix + "download/" + rna_tool_dir + '.tar.gz'),
+        S3.remote(prefix + 'download/' + rna_ref_file),
+        S3.remote(prefix + 'download/JRGraySRRMapping.csv'),
+        S3.remote(prefix + "processed/drug_norm_post.RData"),
+        S3.remote(prefix + "processed/profiles.RData"),
+        S3.remote(prefix + "data/gb-2013-14-10-r110-s1.xlsx")
     output:
         prefix + "GRAY2013.rds"
     shell:
         """
-        Rscript {prefix}scripts/GRAY.R {prefix} {rna_tool} {rna_ref}
+        Rscript scripts/GRAY.R {prefix} {rna_tool} {rna_ref}
         """
 
 rule recalculate_and_assemble_slice:
     input:
-        prefix + "processed/raw_sense_slices.zip"
+        S3.remote(prefix + "processed/raw_sense_slices.zip")
     output:
-        prefix + "processed/profiles.RData"
+        S3.remote(prefix + "processed/profiles.RData")
     shell:
         """
-        Rscript {prefix}scripts/recalculateAndAssembleSlice.R {prefix}
+        Rscript scripts/recalculateAndAssembleSlice.R {prefix}
         """
 
 rule get_sens_data:
     input:
-        prefix + "download/drugs_with_ids.csv",
-        prefix + "download/cell_annotation_all.csv",
-        prefix + "data/gb-2013-14-10-r110-s9.txt",
+        S3.remote(prefix + "download/drugs_with_ids.csv"),
+        S3.remote(prefix + "download/cell_annotation_all.csv"),
+        S3.remote(prefix + "data/gb-2013-14-10-r110-s9.txt"),
     output:
-        prefix + "processed/drug_norm_post.RData",
-        prefix + "processed/raw_sense_slices.zip"
+        S3.remote(prefix + "processed/drug_norm_post.RData"),
+        S3.remote(prefix + "processed/raw_sense_slices.zip")
     shell:
         """
-        Rscript {prefix}scripts/downloadSensData.R {prefix}
+        Rscript scripts/downloadSensData.R {prefix}
         """
 
 rule download_annotation:
     output:
-        prefix + "download/drugs_with_ids.csv",
-        prefix + "download/cell_annotation_all.csv",
-        prefix + 'download/' + rna_ref_file,
-        prefix + 'download/JRGraySRRMapping.csv'
+        S3.remote(prefix + "download/drugs_with_ids.csv"),
+        S3.remote(prefix + "download/cell_annotation_all.csv"),
+        S3.remote(prefix + 'download/' + rna_ref_file),
+        S3.remote(prefix + 'download/JRGraySRRMapping.csv')
     shell:
         """
         wget 'https://github.com/BHKLAB-DataProcessing/Annotations/raw/master/drugs_with_ids.csv' \
@@ -76,8 +77,14 @@ rule download_annotation:
 
 rule download_data:
     output:
-        prefix + "download/" + rna_tool_dir + '.tar.gz'
+        S3.remote(prefix + "download/" + rna_tool_dir + '.tar.gz'),
+        S3.remote(prefix + "data/gb-2013-14-10-r110-s9.txt"),
+        S3.remote(prefix + "data/gb-2013-14-10-r110-s1.xlsx")
     shell:
         """
         wget '{basePath}/RNA-seq/{rna_tool_dir}.tar.gz' -O {prefix}download/{rna_tool_dir}.tar.gz
+        wget 'https://github.com/BHKLAB-DataProcessing/getGRAY2013/raw/master/data/gb-2013-14-10-r110-s9.txt' \
+            -O {prefix}data/gb-2013-14-10-r110-s9.txt
+        wget 'https://github.com/BHKLAB-DataProcessing/getGRAY2013/raw/master/data/gb-2013-14-10-r110-s1.xlsx' \
+            -O {prefix}data/gb-2013-14-10-r110-s1.xlsx
         """
