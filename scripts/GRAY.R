@@ -7,17 +7,18 @@ library(data.table)
 library(reshape2)
 library(CoreGx)
 library(SummarizedExperiment)
-library(biocompute)
+# library(biocompute)
 
 options(stringsAsFactors = FALSE)
 args = commandArgs(trailingOnly=TRUE)
 
-data_dir <- paste0(args[1], "data")
-download_dir <- paste0(args[1], "download")
-processed_dir <- paste0(args[1], "processed")
-output_dir <- args[1]
-tools <- args[2]
-transcriptome <- args[3]
+data_dir <- paste0(args[[1]], "data")
+download_dir <- paste0(args[[1]], "download")
+processed_dir <- paste0(args[[1]], "processed")
+output_dir <- args[[1]]
+filename <- args[[2]]
+tools <- args[[3]]
+transcriptome <- args[[4]]
 
 # data_dir <- "/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/data"
 # download_dir <- "/Users/minoru/Code/bhklab/DataProcessing/PSet/getGRAY2013/download"
@@ -555,7 +556,7 @@ if (length(standardize) > 0){
 }
 
 GRAY2013@annotation$version <- 2
-saveRDS(GRAY2013,file=paste0(output_dir, "GRAY2013.rds"))				   
+saveRDS(GRAY2013,file=paste0(output_dir, filename))				   
 # dataset <- "GRAY"
 # #output ORCESTRA_ID and Pachyderm commit id
 # write.table(dataset, file="/pfs/out/dataset.txt", row.names = F ,quote = F, sep = "\t", col.names = F)	

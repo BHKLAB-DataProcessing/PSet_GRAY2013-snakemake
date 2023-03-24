@@ -35,7 +35,7 @@ rule get_pset:
         S3.remote(prefix + filename)
     shell:
         """
-        Rscript scripts/GRAY.R {prefix} {rna_tool} {rna_ref} {filtered}
+        Rscript scripts/GRAY.R {prefix} {filename} {rna_tool} {rna_ref} {filtered}
         """
 
 rule recalculate_and_assemble_slice:
