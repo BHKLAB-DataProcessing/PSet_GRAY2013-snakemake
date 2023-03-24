@@ -8,8 +8,12 @@ S3 = S3RemoteProvider(
 )
 
 prefix = config["prefix"]
-rna_tool = 'Kallisto-0.46.1'
-rna_ref = 'Gencode_v33'
+filename = config["filename"]
+rna_tool = config["rna_tool"]
+rna_ref = config["rna_ref"]
+is_filtered = config["filtered"]
+filtered = filtered = 'filtered' if is_filtered is not None and is_filtered == 'True' else ''
+
 basePath = "https://orcestradata.blob.core.windows.net/gray"
 
 rna_tool_dir = rna_tool.replace('-', '_')
@@ -28,10 +32,10 @@ rule get_pset:
         S3.remote(prefix + "processed/profiles.RData"),
         S3.remote(prefix + "data/gb-2013-14-10-r110-s1.xlsx")
     output:
-        prefix + "GRAY2013.rds"
+        S3.remote(prefix + filename)
     shell:
         """
-        Rscript scripts/GRAY.R {prefix} {rna_tool} {rna_ref}
+        Rscript scripts/GRAY.R {prefix} {rna_tool} {rna_ref} {filtered}
         """
 
 rule recalculate_and_assemble_slice:
