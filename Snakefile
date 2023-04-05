@@ -12,11 +12,7 @@ filename = config["filename"]
 rna_tool = config["rna_tool"]
 rna_ref = config["rna_ref"]
 is_filtered = config["filtered"]
-<<<<<<< HEAD
 filtered = 'filtered' if is_filtered is not None and is_filtered == 'filtered' else ''
-=======
-filtered = 'filtered' if config["filtered"] is not None and config["filtered"] == 'filtered' else '''
->>>>>>> 359c23bb9b172aa9c4a8097a8d9e428024cb0de7
 
 basePath = "https://orcestradata.blob.core.windows.net/gray"
 
